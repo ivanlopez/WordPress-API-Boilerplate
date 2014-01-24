@@ -68,6 +68,9 @@ class WP_API_NAME extends Base_API{
 
 		add_action( 'template_redirect', array( $this, 'api_request' ), -1);
 		add_filter( 'query_vars',  array( $this, 'api_routes' ) );
+
+		register_activation_hook( __FILE__, array( $this, 'activate' ) );
+		register_deactivation_hook( __FILE__, array( $this, 'deactivate' ) );
 	}	
 
 	/**
@@ -102,7 +105,7 @@ class WP_API_NAME extends Base_API{
 	 * @return void
 	 */
 	public static function deactivate( $network_wide ) {
-		update_option('wp_api_NAME_version', self::VERSION);
+		delete_option('wp_api_NAME_version', self::VERSION);
 		flush_rewrite_rules();
 	}
 
