@@ -160,7 +160,7 @@
 		$user = get_userdata( $user_id );
 		$keys['public'] =  hash( 'md5', $user->user_email . date( 'U' ) );
 		$keys['secret'] =  hash( 'md5', $user->ID . date( 'U' ) );
-		$keys['token'] =  hash( 'md5', $secret . $public  );
+		$keys['token'] =  hash( 'md5', $keys['secret'] . $keys['public']  );
 
 		return $keys;		
 	}
